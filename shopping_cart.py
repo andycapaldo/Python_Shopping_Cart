@@ -19,7 +19,7 @@ def total(shopping_list=shopping_list):
     total_price = 0
     for k, v in shopping_list.items():
         total_price += (v[0] * v[1])
-    print(f'Total: ${round(total_price, 2)}')
+    print(f'Total: ${round(total_price, 2)}\n')
 
 
 def add_to_cart():
@@ -89,16 +89,28 @@ def remove_from_cart():
     total(shopping_list)
 
 
+def view_cart():
+    print('\nItems in Cart:')
+    for k, v in shopping_list.items():
+        print(f'\t{v[1]} {k} ${round(v[0] * v[1], 2)}')
+    total(shopping_list)
 
 
+def clear_whole_cart():
+    shopping_list.clear()
 
 
 def shopping_cart():
     active = True
-    potential_responses = {'add', 'remove', 'clear', 'quit'}
+    potential_responses = {'add', 'remove', 'view', 'clear', 'quit'}
     while active:
-        initial = input('What would you like to do?\n(Add / Remove / Clear / Quit)\t').lower()
+        initial = input('\nWhat would you like to do?\n(Add / Remove / View / Clear / Quit)\n\t').lower()
         if initial == 'quit':
+            print('Here is your receipt:\n')
+            for k, v in shopping_list.items():
+                print(f'\t{v[1]} {k} ${round(v[0] * v[1], 2)}')
+            total(shopping_list)
+            print('\nThank you for shopping with us!')
             active = False
         elif initial not in potential_responses: 
             print('Sorry, but that is not a valid response.')
@@ -106,9 +118,11 @@ def shopping_cart():
             add_to_cart()
         elif initial == 'remove':
             remove_from_cart() 
+        elif initial == 'view':
+            view_cart()
         elif initial == 'clear':
-        # clear_from_cart() function
-            print('Your cart has been cleared!')
+            clear_whole_cart()
+            print('\nYour cart has been cleared!')
 
 
 
